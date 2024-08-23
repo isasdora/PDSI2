@@ -13,7 +13,7 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     secret_key = os.environ.get("SECRET_KEY")
-    return {"Hello": "outra coisa"}
+    return {"Hello": "World"}
 
 @app.post("/criar", status_code=status.HTTP_201_CREATED)
 def criar_valores(nova_mensagem: classes.Mensagem, db: Session = Depends(get_db)):
