@@ -11,9 +11,9 @@ jobs:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: isadora
-          POSTGRES_DB: pds
+          USER: postgres
+          PASSWORD: isadora
+          NAME: pds
         ports:
           - 5432:5432
     steps:
