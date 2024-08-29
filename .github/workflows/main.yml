@@ -31,5 +31,5 @@ jobs:
         run: sleep 15
       - name: Executar pytest
         env:
-          DATABASE_URL: postgres://postgres:isadora@localhost:5432/pds
+          DATABASE_URL: postgresql://postgres:isadora@localhost:5432/pds
         run: pytest teste.py
