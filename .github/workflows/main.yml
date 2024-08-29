@@ -28,7 +28,7 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
       - name: Esperando o PostgreSQL ficar pronto
-        run: sleep 15
+        run: sleep 30
       - name: Executar pytest
         env:
           DATABASE_URL: postgres://postgres:isadora@localhost:5432/pds
