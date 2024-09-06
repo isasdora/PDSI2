@@ -2,16 +2,19 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
+from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from datetime import datetime
+
 from dotenv import load_dotenv
 load_dotenv()
 
-user = os.getenv("USER") 
-password = os.getenv("PASSWORD")
-host = os.getenv("HOST") 
-database = os.getenv("NAME")
+# user = os.getenv("USER") 
+# password = os.getenv("PASSWORD")
+# host = os.getenv("HOST") 
+# database = os.getenv("NAME")
  
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{user}:{password}@{host}/{database}"
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
@@ -24,3 +27,13 @@ def get_db():
         yield db
     finally:
         db.close()
+
+class MenuItem(Base):
+    __tablename__ = 'menu'
+   
+    id = Column(Integer, primary_key=True, index=True)
+    menuNav = Column(String, nullable=False)
+    link = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+ 
+Base.metadata.create_all(bind=engine)
