@@ -1,9 +1,7 @@
 name: Build and Deploy
-
 on:
   - push
   - pull_request
-
 jobs:
   job1:
     runs-on: ubuntu-latest
@@ -11,25 +9,26 @@ jobs:
       postgres:
         image: postgres:13
         env:
-          USER: postgres
-          PASSWORD: isadora
-          NAME: pds
+          POSTGRES_USER: ${{ secrets.USER }}
+          POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
+          POSTGRES_DB: ${{ secrets.HOST }}
+          POSTGRES_HOSTNAME: ${{ secrets.NAME }}
         ports:
           - 5432:5432
     steps:
-      - name: Pulling git repo
+      - name: pulling git repo
         uses: actions/checkout@v2
-      - name: Instalando o Python
+      - name: instalando o python
         uses: actions/setup-python@v2
         with:
           python-version: "3.12.3"
-      - name: Update pip
+      - name: update pip
         run: python -m pip install --upgrade pip
-      - name: Instalar dependências
+      - name: instalar dependencias
         run: pip install -r requirements.txt
       - name: Esperando o PostgreSQL ficar pronto
-        run: sleep 30
+        run: sleep 15
       - name: Executar pytest
         env:
-          DATABASE_URL: postgres://postgres:isadora@localhost:5432/pds
+          DATABASE_URL: postgresql://${{ secrets.USER }}:${{ secrets.PASSWORD }}@${{ secrets.HOST }}:5432/${{ secrets.NAME }}
         run: pytest teste.py
