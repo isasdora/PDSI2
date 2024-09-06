@@ -1,9 +1,8 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
-import os
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from sqlalchemy.orm import declarative_base, sessionmaker
 from datetime import datetime
+import os
+from dotenv import load_dotenv
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -29,8 +28,7 @@ def get_db():
         db.close()
 
 class MenuItem(Base):
-    _tablename_ = 'menu'  # Dois underscores antes e depois de "tablename"
-   
+    __tablename__ = 'menu'
     id = Column(Integer, primary_key=True, index=True)
     menuNav = Column(String, nullable=False)
     link = Column(String, nullable=True)
