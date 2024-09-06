@@ -29,7 +29,7 @@ def get_db():
         db.close()
 
 class MenuItem(Base):
-    __tablename__ = 'menu'
+    _tablename_ = 'menu'  # Dois underscores antes e depois de "tablename"
    
     id = Column(Integer, primary_key=True, index=True)
     menuNav = Column(String, nullable=False)
