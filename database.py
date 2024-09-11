@@ -28,7 +28,7 @@ def get_db():
         db.close()
 
 class MenuItem(Base):
-    __tablename__ = 'menu'
+    __tablename__ = 'teste'
     id = Column(Integer, primary_key=True, index=True)
     menuNav = Column(String, nullable=False)
     link = Column(String, nullable=True)
