@@ -9,30 +9,26 @@ jobs:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.USUARIO_DB }}
+          POSTGRES_PASSWORD: ${{ secrets.SENHA_DB }}
+          POSTGRES_DB: ${{ secrets.NOME_DB }}
+          POSTGRES_HOSTNAME: ${{ secrets.HOST_DB }}
         ports:
           - 5432:5432
-        options: > 
-          --health-cmd="pg_isready" 
-          --health-interval=10s 
-          --health-timeout=5s 
-          --health-retries=5
     steps:
-      - name: Clonar repositório
+      - name: pulling git repo
         uses: actions/checkout@v2
-      - name: Configurar Python
+      - name: instalando o python
         uses: actions/setup-python@v2
         with:
           python-version: "3.12.3"
-      - name: Atualizar pip
+      - name: update pip
         run: python -m pip install --upgrade pip
-      - name: Instalar dependências
+      - name: instalar dependencias
         run: pip install -r requirements.txt
-      - name: Esperar PostgreSQL ficar pronto
+      - name: Esperando o PostgreSQL ficar pronto
         run: sleep 15
       - name: Executar pytest
         env:
-          DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+          DATABASE_URL: postgresql://${{ secrets.USUARIO_DB }}:${{ secrets.SENHA_DB }}@${{ secrets.HOST_DB }}:5432/${{ secrets.NOME_DB }}
         run: pytest teste.py
