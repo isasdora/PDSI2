@@ -4,14 +4,7 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 
-from dotenv import load_dotenv
 load_dotenv()
-
-# user = os.getenv("USER") 
-# password = os.getenv("PASSWORD")
-# host = os.getenv("HOST") 
-# database = os.getenv("NAME")
- 
 
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 

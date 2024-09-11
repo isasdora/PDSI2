@@ -12,7 +12,6 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    secret_key = os.environ.get("SECRET_KEY")
     return {"Hello": "World"}
 
 @app.post("/criar", status_code=status.HTTP_201_CREATED)
